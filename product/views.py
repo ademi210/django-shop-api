@@ -1,10 +1,11 @@
 from rest_framework import generics
 from .models import Category, Product, Review
 from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer
+from django.db.models import Count
 
 
 class CategoryListView(generics.ListAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.annotate(product_count=Count('product'))
     serializer_class = CategorySerializer
 
 
@@ -23,6 +24,13 @@ class ProductDetailView(generics.RetrieveAPIView):
     serializer_class = ProductSerializer
 
 
+
+class ProductReviewsView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+
 class ReviewListView(generics.ListAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
@@ -31,4 +39,7 @@ class ReviewListView(generics.ListAPIView):
 class ReviewDetailView(generics.RetrieveAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+
+
+
 
