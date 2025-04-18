@@ -1,10 +1,9 @@
 from django.db import transaction
 from rest_framework.response import  Response
-from rest_framework import generics, status
+from rest_framework import status
 from .models import Category, Product, Review
 from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ProductValidateSerializer, \
     CategoryValidateSerializer, ReviewValidateSerializer
-from django.db.models import Count
 from rest_framework.decorators import api_view
 
 
@@ -173,9 +172,9 @@ def review_detail_view(request, id):
 
 
 
-class CategoryListView(generics.ListAPIView):
-    queryset = Category.objects.annotate(product_count=Count('products'))
-    serializer_class = CategorySerializer
+# class CategoryListView(generics.ListAPIView):
+#     queryset = Category.objects.annotate(product_count=Count('products'))
+#     serializer_class = CategorySerializer
 
 
 # class CategoryDetailView(generics.RetrieveAPIView):
